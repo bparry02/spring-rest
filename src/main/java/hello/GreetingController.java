@@ -22,8 +22,9 @@ public class GreetingController {
     //@ApiOperation(value = "Generate a greeting for a given name")
     public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
         counter.increment();
+        String envSecret = System.getenv("MY_ENV_SECRET");
         return new Greeting((int)counter.count(),
-                            String.format(template, name));
+                            String.format(template, name + ": " + envSecret));
     }
 
     @GetMapping("/")
